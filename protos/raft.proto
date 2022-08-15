@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+//proto3 字段 ： singular:可以有零个或一个字段。这是默认规则
+//              repeated:可重复字段
+
+package praft;
+
+service PeerCommunication {
+	rpc RequestVote(RVRequest) returns (RVRespose) {}
+
+	rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse) {}
+}
+
+message Entry {
+	enum OpType {
+		kRead = 0;
+		kWrite = 1;
+		kDelete = 2;
+	}
+	uint64 term = 1;
+	string key = 2;
+	string value = 3;
+	OpType optype = 4;
+}
+
+message RVRequest {
+	uint64 term = 1;
+	bytes ip = 2;
+	int32 port = 3;
+	uint64 last_log_index = 4;
+	uint64 last_log_term = 5;
+}
+
+message RVRespose {
+	uint64 term = 1;
+	bool vote_granted = 2;
+}
+
+message AppendEntriesRequest {
+	uint64 term = 1;
+	bytes ip = 2;
+	int32 port = 3;
+	uint64 prev_log_index = 4;
+	uint64 prev_log_term = 5;
+	repeated Entry entries = 6;
+}
+
+message AppendEntriesResponse {
+	uint64 term = 1;
+	bool success = 2;
+}
