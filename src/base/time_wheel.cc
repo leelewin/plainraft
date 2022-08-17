@@ -2,7 +2,7 @@
 
 namespace praft {
 
-TimeWheel::TimeWheel() : current_slot(0)
+TimeWheel::TimeWheel() : slots(kSlotNum), current_slot(0)
 {
 	//empty
 }
@@ -12,8 +12,13 @@ TimeWheel::~TimeWheel()
 	for (TWItem* ptr : slots) {
 		TWItem* p = nullptr;
 		while (ptr != nullptr) {
-			p = ptr->next;
-			ptr->next = p->next;
+			if (ptr->next == nullptr) {
+				p = ptr;
+				ptr = nullptr;
+			} else {
+				p = ptr;
+				ptr = ptr->next;
+			}
 			delete p;
 		}
 	}
@@ -65,7 +70,7 @@ void TimeWheel::tick()
 			}
 		}
 	}
-	current_slot = (++current_slot) % kSlotNum;
+	current_slot = (current_slot + 1) % kSlotNum;
 
 }
 
