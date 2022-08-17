@@ -5,6 +5,7 @@ set(base_SRCs
 	base/logger.cc
 	base/logstream.cc
 	base/timestamp.cc
+	base/time_wheel.cc
 )
 
 add_library(base ${base_SRCs})
