@@ -4,4 +4,4 @@
 *.so
 *.so.*
 build/
-
+.vscode
