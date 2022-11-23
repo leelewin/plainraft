@@ -9,8 +9,10 @@ praft是raft共识算法的C++实现，基于grpc和rocksdb，可以用来构建
 
 ### 🔨编译与使用
 - compile with cmake and makefile
-`$ mkdir build && cd build && cmake .. && make`
-`$ make install`
+
+  `$ mkdir build && cd build && cmake .. && make`
+
+  `$ make install`
 
 - play praft with examples
 
